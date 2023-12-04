@@ -1,18 +1,28 @@
+import { useState } from 'react'
 import NotePreview from './NotePreview'
-//app render noteIndex
-//noteIndex render noteForm and noteList
-//noteLIst render notePreview with loop
 
-function NoteList({ notes }) {
+
+function NoteList({ notes, onDelete, }) {
+    const [selectedNote, setSelectedNote] = useState()
+
+    const onSelectedNote = (noteId) => {
+        const selectNote = notes.find(note => note.id === noteId)
+        setSelectedNote(selectNote)
+    }
+
     return (
-        <ul className='noteList'>
-            {notes.map((note, index) => {
-                const { text, date } = NotePreview
-                return <li key={index}>
-                    <NotePreview note={note} text={note.text} date={note.date} />
-                </li>
-            })}
-        </ul>
+        <div>
+            <ul className='note-list'>
+                {notes.map((note, index) => {
+                    return <li key={index}>
+                        <NotePreview selectNote={onSelectedNote} onDelete={onDelete} note={note} />
+                    </li>
+                })}
+                <div className='note-modal'>
+                    {selectedNote && <NotePreview note={selectedNote} />}
+                </div>
+            </ul>
+        </div>
     )
 }
 export default NoteList

@@ -1,4 +1,3 @@
-import './App.css'
 import NoteIndex from './cmps/NoteIndex'
 
 function App() {
