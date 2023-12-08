@@ -11,7 +11,6 @@ function NoteIndex() {
   }
 
   const onDelete = (noteId) => {
-    console.log(noteId);
     const newNotes = notes.filter((note) => note.id !== noteId)
 
     setNotes(newNotes)

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import NotePreview from './NotePreview'
 
 
-function NoteList({ notes, onDelete, }) {
+function NoteList({ notes, onDelete }) {
     const [selectedNote, setSelectedNote] = useState()
 
     const onSelectedNote = (noteId) => {
@@ -14,13 +14,22 @@ function NoteList({ notes, onDelete, }) {
         <div>
             <ul className='note-list'>
                 {notes.map((note, index) => {
+                    const deleteNote = (ev) => {
+                        ev.stopPropagation()
+                        onDelete(note.id)
+                    }
+
                     return <li key={index}>
-                        <NotePreview selectNote={onSelectedNote} onDelete={onDelete} note={note} />
+                        <button onClick={deleteNote} >❌</button>
+                        <NotePreview selectNote={onSelectedNote} note={note} />
                     </li>
                 })}
-                <div className='note-modal'>
-                    {selectedNote && <NotePreview note={selectedNote} />}
-                </div>
+                {selectedNote &&
+                    (<div className='note-modal'>
+                        <button onClick={() => setSelectedNote(null)} >x</button>
+                        <NotePreview note={selectedNote} />
+
+                    </div>)}
             </ul>
         </div>
     )
