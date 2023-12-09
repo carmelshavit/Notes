@@ -1,13 +1,5 @@
 .note-preview {
-    display: flex;
-    flex-direction: column;
-    background-color: lightgrey;
-    height: 300px;
-    width: 200px;
-    padding: 10px;
-    gap: 10px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    border-radius: 10px;
+    padding-block-start: 20px;
 
     .note-header {
         display: flex;

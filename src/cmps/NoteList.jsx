@@ -1,14 +1,11 @@
 import { useState } from 'react'
 import NotePreview from './NotePreview'
+import NoteForm from './NoteForm'
 
 
 function NoteList({ notes, onDelete }) {
     const [selectedNote, setSelectedNote] = useState()
 
-    const onSelectedNote = (noteId) => {
-        const selectNote = notes.find(note => note.id === noteId)
-        setSelectedNote(selectNote)
-    }
 
     return (
         <div>
@@ -19,16 +16,16 @@ function NoteList({ notes, onDelete }) {
                         onDelete(note.id)
                     }
 
-                    return <li key={index}>
+                    return <li key={index} onClick={() => setSelectedNote(note)}>
                         <button onClick={deleteNote} >❌</button>
-                        <NotePreview selectNote={onSelectedNote} note={note} />
+                        <NotePreview note={note} />
                     </li>
                 })}
+
                 {selectedNote &&
                     (<div className='note-modal'>
                         <button onClick={() => setSelectedNote(null)} >x</button>
-                        <NotePreview note={selectedNote} />
-
+                        <NoteForm note={selectedNote} />
                     </div>)}
             </ul>
         </div>
